@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Druk General Store - Stationery (Media Queries only)</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- RESET & GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F9F7F3;
+      color: #2D2D2D;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ---------- HEADER (uses flex – allowed, but main content uses floats) ---------- */
+    .site-header {
+      background-color: #2C5F2D;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .logo p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #E67E22;
+    }
+
+    /* ---------- HERO BANNER ---------- */
+    .hero-stationery {
+      background: linear-gradient(rgba(44, 95, 45, 0.8), rgba(44, 95, 45, 0.8)), url('https://picsum.photos/id/20/1600/400') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero-stationery h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-stationery p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ---------- MAIN CONTENT (no grid, no flex – floats + clearfix) ---------- */
+    .stationery-main {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* clearfix */
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    /* Exam Pack Section – uses floats */
+    .exam-pack {
+      background: #2C5F2D;
+      color: white;
+      border-radius: 30px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      overflow: auto; /* clearfix */
+    }
+
+    .exam-pack-content {
+      float: left;
+      width: 60%;
+    }
+
+    .exam-pack-image {
+      float: right;
+      width: 35%;
+      text-align: center;
+    }
+
+    .exam-pack-image img {
+      max-width: 100%;
+      border-radius: 20px;
+    }
+
+    .exam-pack-content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-bundle {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+
+    .old-bundle {
+      text-decoration: line-through;
+      font-size: 1rem;
+      margin-right: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .new-bundle {
+      color: #E67E22;
+      font-size: 1.6rem;
+    }
+
+    .btn-bundle {
+      background-color: #E67E22;
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn-bundle:hover {
+      background-color: #c95f0f;
+    }
+
+    /* Product grid: using floats and percentage widths */
+    .section-title {
+      font-size: 1.8rem;
+      margin: 2rem 0 1.5rem;
+      color: #2C5F2D;
+      border-left: 5px solid #E67E22;
+      padding-left: 1rem;
+    }
+
+    .product-grid {
+      margin: 0 -0.9rem; /* negative margin to offset card padding */
+    }
+
+    .product-card {
+      float: left;
+      width: 25%; /* 4 columns by default */
+      padding: 0 0.9rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .card-inner {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      height: 100%;
+    }
+
+    .card-inner:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 1rem;
+    }
+
+    .product-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #E67E22;
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    .desc {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.8rem;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background-color: #2C5F2D;
+      color: white;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .btn-details {
+      display: inline-block;
+      background-color: #2C5F2D;
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn-details:hover {
+      background-color: #E67E22;
+    }
+
+    /* Featured Brand – float layout */
+    .featured-brand {
+      background: #F9F7F3;
+      border-radius: 30px;
+      padding: 2rem;
+      margin: 3rem 0;
+      border: 1px solid #e0e0e0;
+      overflow: auto;
+    }
+
+    .brand-logo {
+      float: left;
+      width: 20%;
+      text-align: center;
+    }
+
+    .brand-logo i {
+      font-size: 4rem;
+      color: #2C5F2D;
+    }
+
+    .brand-info {
+      float: left;
+      width: 75%;
+      margin-left: 5%;
+    }
+
+    .brand-info h3 {
+      font-size: 1.8rem;
+      color: #2C5F2D;
+    }
+
+    .brand-items {
+      margin-top: 1rem;
+    }
+
+    .brand-item {
+      display: inline-block;
+      background: white;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    /* Footer (uses flex, but okay) */
+    .footer {
+      background: #1E3A1F;
+      color: #ddd;
+      padding: 3rem 1.5rem 1rem;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+
+    .footer-container > div {
+      flex: 1 1 250px;
+    }
+
+    .footer h3 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #E67E22;
+    }
+
+    .footer form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer input {
+      padding: 0.6rem;
+      border: none;
+      border-radius: 30px;
+    }
+
+    .footer button {
+      background: #E67E22;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #3a5e3b;
+      font-size: 0.8rem;
+    }
+
+    /* ---------- RESPONSIVENESS USING ONLY MEDIA QUERIES ---------- */
+    /* Tablet: 2 columns */
+    @media (max-width: 900px) {
+      .product-card {
+        width: 50%;
+      }
+      .exam-pack-content {
+        width: 100%;
+        float: none;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .exam-pack-image {
+        width: 100%;
+        float: none;
+        text-align: center;
+      }
+      .brand-logo, .brand-info {
+        width: 100%;
+        float: none;
+        text-align: center;
+        margin-left: 0;
+      }
+      .brand-logo {
+        margin-bottom: 1rem;
+      }
+    }
+
+    /* Mobile: 1 column */
+    @media (max-width: 600px) {
+      .product-card {
+        width: 100%;
+      }
+      .header-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .hero-stationery h1 {
+        font-size: 1.8rem;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo">
+      <h1>Druk General Store</h1>
+      <p>Kanglung • Serving Sherubtse College</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="Homepage2.html">Home</a></li>
+        <li><a href="grocery.html">Grocery</a></li>
+        <li><a href="stationery.html">Stationery</a></li>
+        <li><a href="household.html">Household</a></li>
+        <li><a href="aboutus.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero-stationery">
+    <h1>Stationery for Every Need</h1>
+    <p>Notebooks, pens, art supplies – fully stocked for assignments, exams, and creative projects.</p>
+  </div>
+
+  <div class="stationery-main">
+    <!-- Exam Pack Bundle -->
+    <div class="exam-pack clearfix">
+      <div class="exam-pack-content">
+        <h2><i class="fas fa-graduation-cap"></i> Exam Survival Pack</h2>
+        <p>Everything you need for finals: 5 notebooks, 10 gel pens, 2 rulers, and a highlighter set.</p>
+        <div class="price-bundle">
+          <span class="old-bundle">Nu. 550</span>
+          <span class="new-bundle">Nu. 450</span>
+        </div>
+        <a href="#" class="btn-bundle">Grab the pack →</a>
+      </div>
+      <div class="exam-pack-image">
+        <img src="https://picsum.photos/id/20/250/200" alt="Stationery bundle">
+      </div>
+    </div>
+
+    <h2 class="section-title">Popular Items</h2>
+    <div class="product-grid clearfix">
+      <!-- Product cards (float-based) -->
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="badge">In stock</div>
+          <img src="pic/book.jpg" alt="Notebook">
+          <div class="product-info">
+            <h3>College Notebook</h3>
+            <div class="price">Nu. 60</div>
+            <div class="desc">120 pages, ruled, A4 size.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="badge">In stock</div>
+          <img src="pic/gelpen.jpg" alt="Gel pens">
+          <div class="product-info">
+            <h3>Gel Pens (Pack of 5)</h3>
+            <div class="price">Nu. 120</div>
+            <div class="desc">Smooth writing, assorted colors.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="badge">In stock</div>
+          <img src="pic/Folkd.jpg" alt="Highlighters">
+          <div class="product-info">
+            <h3>Highlighter Set (4 pcs)</h3>
+            <div class="price">Nu. 90</div>
+            <div class="desc">Neon colors, chisel tip.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="badge">In stock</div>
+          <img src="pic/box.jpg" alt="Geometry box">
+          <div class="product-info">
+            <h3>Geometry Box</h3>
+            <div class="price">Nu. 150</div>
+            <div class="desc">Compass, ruler, protractor, set squares.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-inner">
+          <img src="pic/drawing.jpg" alt="Sketchbook">
+          <div class="product-info">
+            <h3>Sketchbook (A4)</h3>
+            <div class="price">Nu. 180</div>
+            <div class="desc">100gsm, spiral bound.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="badge">In stock</div>
+          <img src="pic/Doms Erasner Square.jpg" alt="Eraser set">
+          <div class="product-info">
+            <h3>Eraser + Sharpener Set</h3>
+            <div class="price">Nu. 30</div>
+            <div class="desc">Dust-free eraser, metal sharpener.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Brand -->
+    <div class="featured-brand clearfix">
+      <div class="brand-logo">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <div class="brand-info">
+        <h3>Druk’s Own Stationery</h3>
+        <p>Proudly supporting local students. Our exclusive brand offers quality notebooks, pens, and art supplies at affordable prices.</p>
+        <div class="brand-items">
+          <span class="brand-item">Notebooks</span>
+          <span class="brand-item">Pens</span>
+          <span class="brand-item">Pencils</span>
+          <span class="brand-item">Art Sets</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>Druk General Store</h3>
+      <p>Serving the Kanglung community and Sherubtse College since 2005. Your trusted stop for everyday needs.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul style="list-style: none;">
+        <li><a href="#">Grocery</a></li>
+        <li><a href="#">Stationery</a></li>
+        <li><a href="#">Household</a></li>
+        <li><a href="#">Student Offers</a></li>
+      </ul>
+    </div>
+    <div class="footer-newsletter">
+      <h3>Newsletter</h3>
+      <p>Get weekly specials and college updates.</p>
+      <form action="#">
+        <input type="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>&copy; 2025 Druk General Store, Kanglung. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

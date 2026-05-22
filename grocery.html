@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Druk General Store - Grocery</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- RESET & GLOBAL (same as homepage) ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F9F7F3;
+      color: #2D2D2D;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ---------- HEADER & NAVIGATION (identical to homepage) ---------- */
+    .site-header {
+      background-color: #2C5F2D;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 1rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #E67E22;
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.2rem;
+      }
+    }
+
+    /* ---------- PAGE HEADER ---------- */
+    .page-header {
+      background: linear-gradient(135deg, #2C5F2D 0%, #1E3A1F 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* ---------- MAIN LAYOUT (GRID: products + sidebar) ---------- */
+    .grocery-main {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 2.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .grocery-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* ---------- FILTERS (CSS-ONLY RADIO TABS) ---------- */
+    .filter-section {
+      margin-bottom: 2rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 0.8rem;
+    }
+
+    .filter-buttons label {
+      background-color: #f0f0f0;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      color: #2D2D2D;
+    }
+
+    /* Hide radio inputs */
+    .filter-section input[type="radio"] {
+      display: none;
+    }
+
+    /* Style for active filter */
+    .filter-section input[type="radio"]:checked + label {
+      background-color: #E67E22;
+      color: white;
+    }
+
+    /* Product grid - initially show all, then filter by category */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 1rem;
+    }
+
+    .product-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-info .price {
+      font-weight: bold;
+      color: #E67E22;
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    .product-info .desc {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn-details {
+      display: inline-block;
+      background-color: #2C5F2D;
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn-details:hover {
+      background-color: #E67E22;
+    }
+
+    /* FILTERING LOGIC: hide products that don't match selected category */
+    /* Default: all visible */
+    #cat-all:checked ~ .product-grid .product-card {
+      display: block;
+    }
+    #cat-veggie:checked ~ .product-grid .product-card:not([data-category="veggie"]),
+    #cat-dairy:checked ~ .product-grid .product-card:not([data-category="dairy"]),
+    #cat-snacks:checked ~ .product-grid .product-card:not([data-category="snacks"]),
+    #cat-beverages:checked ~ .product-grid .product-card:not([data-category="beverages"]) {
+      display: none;
+    }
+    /* Ensure product cards are block by default */
+    .product-card {
+      display: block;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      align-self: start;
+    }
+
+    .sidebar h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #E67E22;
+      padding-left: 0.8rem;
+    }
+
+    .hours-list {
+      list-style: none;
+      margin: 1rem 0;
+    }
+
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .hours-list li strong {
+      color: #2C5F2D;
+    }
+
+    .stock-note {
+      background-color: #F9F7F3;
+      padding: 1rem;
+      border-radius: 16px;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .stock-note i {
+      color: #E67E22;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stock-note p {
+      font-size: 0.9rem;
+    }
+
+    /* ---------- FOOTER (same as homepage) ---------- */
+    .footer {
+      background: #1E3A1F;
+      color: #ddd;
+      padding: 3rem 1.5rem 1rem;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #E67E22;
+    }
+
+    .footer form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer input {
+      padding: 0.6rem;
+      border: none;
+      border-radius: 30px;
+      font-family: inherit;
+    }
+
+    .footer button {
+      background: #E67E22;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .footer button:hover {
+      background: #c95f0f;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #3a5e3b;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo">
+      <h1>Druk General Store</h1>
+      <p>Kanglung • Serving Sherubtse College</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="Homepage2.html">Home</a></li>
+        <li><a href="grocery.html">Grocery</a></li>
+        <li><a href="stationery.html">Stationery</a></li>
+        <li><a href="household.html">Household</a></li>
+        <li><a href="aboutus.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Groceries</h1>
+    <p>Fresh produce, pantry staples, and student-friendly snacks – everything you need for your daily meals.</p>
+  </div>
+
+  <div class="grocery-main">
+    <!-- Left column: filters + products -->
+    <div class="filter-section">
+      <!-- Hidden radio inputs for CSS-only filtering -->
+      <input type="radio" name="category" id="cat-all" checked>
+      <input type="radio" name="category" id="cat-veggie">
+      <input type="radio" name="category" id="cat-dairy">
+      <input type="radio" name="category" id="cat-snacks">
+      <input type="radio" name="category" id="cat-beverages">
+
+      <div class="filter-buttons">
+        <label for="cat-all">All</label>
+        <label for="cat-veggie">Fruits & Veggies</label>
+        <label for="cat-dairy">Dairy & Eggs</label>
+        <label for="cat-snacks">Snacks & Instant Meals</label>
+        <label for="cat-beverages">Beverages</label>
+      </div>
+
+      <!-- Product Grid (each card has data-category attribute) -->
+      <div class="product-grid">
+        <!-- Fruits & Veggies -->
+        <div class="product-card" data-category="veggie">
+          <img src="pic/apple.jpeg" alt="apple">
+          <div class="product-info">
+            <h3>Fresh Apple</h3>
+            <div class="price">Nu. 30/kg</div>
+            <div class="desc">Crisp and sweet, imported.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="veggie">
+          <img src="pic/tomatos.jpeg" alt="Tomatoes">
+          <div class="product-info">
+            <h3>Tomatoes</h3>
+            <div class="price">Nu. 60/kg</div>
+            <div class="desc">Locally grown, farm fresh.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="veggie">
+          <img src="pic/potato.jpeg" alt="Potatoes">
+          <div class="product-info">
+            <h3>Potatoes</h3>
+            <div class="price">Nu. 40/kg</div>
+            <div class="desc">Ideal for curries and fries.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <!-- Dairy & Eggs -->
+        <div class="product-card" data-category="dairy">
+          <img src="pic/milk.jpeg" alt="Milk">
+          <div class="product-info">
+            <h3>Fresh Milk</h3>
+            <div class="price">Nu. 80/L</div>
+            <div class="desc">Pasteurized, direct from farm.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="dairy">
+          <img src="pic/cheese.jpeg" alt="Cheese">
+          <div class="product-info">
+            <h3>Processed Cheese</h3>
+            <div class="price">Nu. 150/200g</div>
+            <div class="desc">Perfect for sandwiches.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="dairy">
+          <img src="pic/egg.jpeg" alt="Eggs">
+          <div class="product-info">
+            <h3>Eggs (dozen)</h3>
+            <div class="price">Nu. 110</div>
+            <div class="desc">Farm fresh, high protein.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <!-- Snacks & Instant Meals -->
+        <div class="product-card" data-category="snacks">
+          <img src="pic/Korean Cheese Ramen.jpg" alt="Noodles">
+          <div class="product-info">
+            <h3>Instant Noodles</h3>
+            <div class="price">Nu. 95/pack</div>
+            <div class="desc">Student favorite, quick meal.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="snacks">
+          <img src="pic/zing.jpeg" alt="Chips">
+          <div class="product-info">
+            <h3>Potato Chips</h3>
+            <div class="price">Nu. 30</div>
+            <div class="desc">Crunchy, salted.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="snacks">
+          <img src="pic/biscutee.jpeg" alt="Biscuits">
+          <div class="product-info">
+            <h3>Cookies</h3>
+            <div class="price">Nu. 45</div>
+            <div class="desc">Butter flavor, tea time snack.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <!-- Beverages -->
+        <div class="product-card" data-category="beverages">
+          <img src="pic/juice.jpeg" alt="Soft Drink">
+          <div class="product-info">
+            <h3>Soft Drink (1000ml)</h3>
+            <div class="price">Nu. 65</div>
+            <div class="desc">Chilled, assorted flavors.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="beverages">
+          <img src="pic/coke.jpeg" alt="Juice">
+          <div class="product-info">
+            <h3>Fruit Juice</h3>
+            <div class="price">Nu. 60/L</div>
+            <div class="desc">Mango, orange, apple.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        <div class="product-card" data-category="beverages">
+          <img src="pic/tea.jpg" alt="Tea">
+          <div class="product-info">
+            <h3>Tea Bags (25ct)</h3>
+            <div class="price">Nu. 120</div>
+            <div class="desc">Strong breakfast blend.</div>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h3><i class="fas fa-clock"></i> Opening Hours</h3>
+      <ul class="hours-list">
+        <li><strong>Mon–Sat</strong> 8:00 AM – 8:00 PM</li>
+        <li><strong>Sunday</strong> 9:00 AM – 5:00 PM</li>
+        <li><strong>Exam Weeks</strong> 7:00 AM – 9:00 PM</li>
+      </ul>
+      <div class="stock-note">
+        <i class="fas fa-boxes"></i>
+        <p><strong>Always in stock:</strong> Rice, eggs, noodles, milk.<br>Bulk discounts for hostels – ask at counter!</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>Druk General Store</h3>
+      <p>Serving the Kanglung community and Sherubtse College since 2005. Your trusted stop for everyday needs.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul style="list-style: none;">
+        <li><a href="#">Grocery</a></li>
+        <li><a href="#">Stationery</a></li>
+        <li><a href="#">Household</a></li>
+        <li><a href="#">Student Offers</a></li>
+      </ul>
+    </div>
+    <div class="footer-newsletter">
+      <h3>Newsletter</h3>
+      <p>Get weekly specials and college updates.</p>
+      <form action="#" method="post">
+        <input type="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>&copy; 2025 Druk General Store, Kanglung. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

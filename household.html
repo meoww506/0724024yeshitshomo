@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Druk General Store - Household Essentials (Flexbox)</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- RESET & GLOBAL (same as before) ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F9F7F3;
+      color: #2D2D2D;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ---------- HEADER & NAVIGATION (unchanged) ---------- */
+    .site-header {
+      background-color: #2C5F2D;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 1rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #E67E22;
+    }
+
+    /* No media query needed — header already uses flex-wrap */
+
+    /* ---------- HERO SECTION ---------- */
+    .hero-household {
+      background: linear-gradient(rgba(44, 95, 45, 0.75), rgba(44, 95, 45, 0.75)), url('https://picsum.photos/id/108/1600/400') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero-household h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-household p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ---------- MAIN LAYOUT: FLEXBOX (replaces grid + media query) ---------- */
+    .household-main {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+    }
+
+    /* Left column: filters + product grid — takes remaining space */
+    .filter-section {
+      flex: 3;
+      min-width: 250px;
+    }
+
+    /* Right column: sidebar — fixed width, but will wrap on small screens */
+    .sidebar {
+      flex: 1;
+      min-width: 220px;
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      align-self: flex-start;
+    }
+
+    /* When screen is narrow, both columns become 100% width (flex-wrap does this automatically) */
+    @media (max-width: 800px) {
+      .filter-section, .sidebar {
+        flex: 1 1 100%;
+      }
+      /* This single media query only handles the column stacking — it's minimal and acceptable */
+    }
+
+    /* ---------- CSS-ONLY TABS (unchanged) ---------- */
+    .tab-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tab-buttons label {
+      background-color: #f0f0f0;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      color: #2D2D2D;
+    }
+
+    .filter-tabs input[type="radio"] {
+      display: none;
+    }
+
+    .filter-tabs input[type="radio"]:checked + label {
+      background-color: #E67E22;
+      color: white;
+    }
+
+    /* Product grid using flexbox (replaces CSS Grid) */
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .product-card {
+      flex: 1 1 260px; /* grow, shrink, basis = 260px → auto wrapping */
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 1rem;
+    }
+
+    .product-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #E67E22;
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .badge.eco {
+      background-color: #2C5F2D;
+      color: white;
+    }
+
+    .badge.bulk {
+      background-color: #E67E22;
+      color: white;
+    }
+
+    .btn-details {
+      display: inline-block;
+      background-color: #2C5F2D;
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn-details:hover {
+      background-color: #E67E22;
+    }
+
+    /* Filtering logic (unchanged) */
+    #tab-all:checked ~ .product-grid .product-card {
+      display: flex;
+    }
+    #tab-cleaning:checked ~ .product-grid .product-card:not([data-category="cleaning"]),
+    #tab-kitchen:checked ~ .product-grid .product-card:not([data-category="kitchen"]),
+    #tab-storage:checked ~ .product-grid .product-card:not([data-category="storage"]) {
+      display: none;
+    }
+    .product-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sidebar content (unchanged) */
+    .sidebar h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #E67E22;
+      padding-left: 0.8rem;
+    }
+
+    .tips-list {
+      list-style: none;
+    }
+
+    .tips-list li {
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .tips-list i {
+      color: #E67E22;
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+    }
+
+    .dorm-special {
+      background-color: #F9F7F3;
+      padding: 1rem;
+      border-radius: 16px;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    /* Footer (unchanged) */
+    .footer {
+      background: #1E3A1F;
+      color: #ddd;
+      padding: 3rem 1.5rem 1rem;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+
+    .footer-container > div {
+      flex: 1 1 250px;
+    }
+
+    .footer h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #E67E22;
+    }
+
+    .footer form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer input {
+      padding: 0.6rem;
+      border: none;
+      border-radius: 30px;
+      font-family: inherit;
+    }
+
+    .footer button {
+      background: #E67E22;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .footer button:hover {
+      background: #c95f0f;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #3a5e3b;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo">
+      <h1>Druk General Store</h1>
+      <p>Kanglung • Serving Sherubtse College</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="Homepage2.html">Home</a></li>
+        <li><a href="grocery.html">Grocery</a></li>
+        <li><a href="stationery.html">Stationery</a></li>
+        <li><a href="household.html">Household</a></li>
+        <li><a href="aboutus.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero-household">
+    <h1>Household Essentials</h1>
+    <p>Cleaning, kitchenware, storage – everything you need for your home or dorm room.</p>
+  </div>
+
+  <div class="household-main">
+    <!-- Left side: tabs + product grid -->
+    <div class="filter-tabs filter-section">
+      <input type="radio" name="household-cat" id="tab-all" checked>
+      <input type="radio" name="household-cat" id="tab-cleaning">
+      <input type="radio" name="household-cat" id="tab-kitchen">
+      <input type="radio" name="household-cat" id="tab-storage">
+
+      <div class="tab-buttons">
+        <label for="tab-all">All</label>
+        <label for="tab-cleaning">Cleaning</label>
+        <label for="tab-kitchen">Kitchen</label>
+        <label for="tab-storage">Storage</label>
+      </div>
+
+      <!-- Product grid (flexbox) -->
+      <div class="product-grid">
+        <div class="product-card" data-category="cleaning">
+          <div class="badge eco">Eco-friendly</div>
+          <img src="pic/Harpic and Gravy_ a review of Sean O’Brien’s ‘Europa’.jpg" alt="All-purpose cleaner">
+          <div class="product-info">
+            <h3>All-Purpose Cleaner</h3>
+            <div class="price">Nu. 180</div>
+            <p class="desc">Plant-based, safe for all surfaces.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="cleaning">
+          <div class="badge bulk">Bulk buy</div>
+          <img src="pic/washing powder.jpg" alt="Laundry detergent">
+          <div class="product-info">
+            <h3>Laundry Detergent (3kg)</h3>
+            <div class="price">Nu. 350</div>
+            <p class="desc">Effective stain removal, fresh scent.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="cleaning">
+          <img src="pic/Quickie Stand & Store, Upright Broom and Dustpan Set for Use in Home, Kitchen, Office, Lobby, and Outdoors.jpg" alt="Broom & dustpan">
+          <div class="product-info">
+            <h3>Broom + Dustpan Set</h3>
+            <div class="price">Nu. 220</div>
+            <p class="desc">Durable, angle-head broom.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="kitchen">
+          <div class="badge eco">Eco-friendly</div>
+          <img src="pic/choping board.jpeg" alt="Bamboo cutting board">
+          <div class="product-info">
+            <h3>Bamboo Cutting Board</h3>
+            <div class="price">Nu. 450</div>
+            <p class="desc">Sustainable, knife-friendly.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="kitchen">
+          <div class="badge bulk">Bulk buy</div>
+          <img src="pic/3-piece Stainless Steel Mixing Bowls Set - 700ml_1200ml_2000ml Metal Bowl Wit___.jpg" alt="Steel bowls set">
+          <div class="product-info">
+            <h3>Stainless Steel Bowls (3 pcs)</h3>
+            <div class="price">Nu. 320</div>
+            <p class="desc">Nesting set, easy to store.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="kitchen">
+          <img src="pic/Stainless steel electric kettle, kettle, 1_8 liter electric kettle.jpg" alt="Kettle">
+          <div class="product-info">
+            <h3>Electric Kettle (1.5L)</h3>
+            <div class="price">Nu. 890</div>
+            <p class="desc">Auto shut-off, boil-dry protection.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="storage">
+          <div class="badge bulk">Bulk buy</div>
+          <img src="pic/Stack & Store Storage Rollerbox 52L Blush.jpg" alt="Storage bin">
+          <div class="product-info">
+            <h3>Storage Bin (50L)</h3>
+            <div class="price">Nu. 280</div>
+            <p class="desc">Stackable, with lid.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="storage">
+          <img src="pic/TENABORT 12 Pack Foldable Drawer Organizer Dividers Cloth Storage Box Closet Dresser Organizer Cube Fabric Containers Basket Bins for Underwear Bras Socks Panties Lingeries Nursery Baby Clothes Gray.jpg" alt="Closet organizer">
+          <div class="product-info">
+            <h3>Closet Organizer Cubes</h3>
+            <div class="price">Nu. 390</div>
+            <p class="desc">Set of 6, foldable fabric.</p>
+            <a href="#" class="btn-details">View details</a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar (quick tips) -->
+    <aside class="sidebar">
+      <h3><i class="fas fa-lightbulb"></i> Quick Tips</h3>
+      <ul class="tips-list">
+        <li>
+          <i class="fas fa-vine"></i>
+          <p><strong>Eco-friendly cleaning:</strong> Mix vinegar and water for a natural all-purpose cleaner.</p>
+        </li>
+        <li>
+          <i class="fas fa-utensils"></i>
+          <p><strong>Dorm kitchen:</strong> A single electric kettle and microwave can cover most meals.</p>
+        </li>
+        <li>
+          <i class="fas fa-box"></i>
+          <p><strong>Space saving:</strong> Use stackable bins under the bed for extra storage.</p>
+        </li>
+      </ul>
+      <div class="dorm-special">
+        <i class="fas fa-users"></i>
+        <p><strong>Hostel/Shared housing?</strong><br>Ask about bulk discounts on detergent, bins, and kitchen sets.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>Druk General Store</h3>
+      <p>Serving the Kanglung community and Sherubtse College since 2005. Your trusted stop for everyday needs.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul style="list-style: none;">
+        <li><a href="#">Grocery</a></li>
+        <li><a href="#">Stationery</a></li>
+        <li><a href="#">Household</a></li>
+        <li><a href="#">Student Offers</a></li>
+      </ul>
+    </div>
+    <div class="footer-newsletter">
+      <h3>Newsletter</h3>
+      <p>Get weekly specials and college updates.</p>
+      <form action="#" method="post">
+        <input type="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>&copy; 2025 Druk General Store, Kanglung. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

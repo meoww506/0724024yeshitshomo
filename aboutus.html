@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Druk General Store - About the Owner</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- RESET & GLOBAL (matches your other pages) ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F9F7F3;
+      color: #2D2D2D;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ---------- HEADER & NAVIGATION (identical) ---------- */
+    .site-header {
+      background-color: #2C5F2D;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 1rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #E67E22;
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.2rem;
+      }
+    }
+
+    /* ---------- PAGE HEADER ---------- */
+    .page-header {
+      background: linear-gradient(135deg, #2C5F2D 0%, #1E3A1F 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* ---------- MAIN CONTENT (TWO COLUMN) ---------- */
+    .about-contact-main {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .about-contact-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* Owner Story Section */
+    .owner-section {
+      background: white;
+      border-radius: 24px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .owner-section h2 {
+      font-size: 1.8rem;
+      color: #2C5F2D;
+      margin-bottom: 1rem;
+      border-left: 5px solid #E67E22;
+      padding-left: 1rem;
+    }
+
+    .owner-section p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .owner-quote {
+      background: #F9F7F3;
+      padding: 1.2rem;
+      border-radius: 16px;
+      margin: 1.2rem 0;
+      font-style: italic;
+      border-left: 3px solid #E67E22;
+    }
+
+    /* Store Details + Contact */
+    .store-details {
+      background: white;
+      border-radius: 24px;
+      padding: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+
+    .store-details h2, .contact-form-section h2 {
+      font-size: 1.8rem;
+      color: #2C5F2D;
+      margin-bottom: 1rem;
+      border-left: 5px solid #E67E22;
+      padding-left: 1rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .info-item i {
+      font-size: 1.4rem;
+      color: #E67E22;
+      width: 30px;
+      text-align: center;
+    }
+
+    .hours-list {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed #eee;
+    }
+
+    /* Contact Form */
+    .contact-form-section {
+      background: white;
+      border-radius: 24px;
+      padding: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #E67E22;
+      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+    }
+
+    input:required:invalid:not(:placeholder-shown) {
+      border-color: #e74c3c;
+      background-color: #fff5f5;
+    }
+
+    input:required:valid:not(:placeholder-shown) {
+      border-color: #2C5F2D;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn-submit {
+      background-color: #E67E22;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: #c95f0f;
+      transform: scale(1.02);
+    }
+
+    /* Map Placeholder */
+    .map-placeholder {
+      margin-top: 2rem;
+      background: #e0e0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .map-placeholder img {
+      width: 100%;
+      height: auto;
+      opacity: 0.9;
+    }
+
+    .map-caption {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      background: #F9F7F3;
+      color: #555;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1E3A1F;
+      color: #ddd;
+      padding: 3rem 1.5rem 1rem;
+      margin-top: 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #E67E22;
+    }
+
+    .footer form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer input {
+      padding: 0.6rem;
+      border: none;
+      border-radius: 30px;
+      font-family: inherit;
+    }
+
+    .footer button {
+      background: #E67E22;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .footer button:hover {
+      background: #c95f0f;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #3a5e3b;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo">
+      <h1>Druk General Store</h1>
+      <p>Kanglung • Serving Sherubtse College</p>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="Homepage2.html">Home</a></li>
+        <li><a href="grocery.html">Grocery</a></li>
+        <li><a href="stationery.html">Stationery</a></li>
+        <li><a href="household.html">Household</a></li>
+        <li><a href="aboutus.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Page Header -->
+  <div class="page-header" style="background: linear-gradient(135deg, #2C5F2D 0%, #1E3A1F 100%); color: white; padding: 3rem 1.5rem; text-align: center;">
+    <h1>Meet the Owner</h1>
+    <p>Get to know the person behind Druk General Store</p>
+  </div>
+
+  <div class="about-contact-main">
+    <!-- Left column: Personal Bio -->
+    <div class="owner-bio">
+      <h2 style="color: #2C5F2D; margin-bottom: 1rem; border-left: 5px solid #E67E22; padding-left: 1rem;">About Me</h2>
+      <p>Hi, I am <strong>Yeshi Tshomo</strong>, and I am <strong>22</strong> years old. I am from <strong>TashiYangtse</strong>. I am the daughter of <strong> Lungten Tshering</strong> (father) and <strong>Dawa Dema</strong> (mother). I was born in the month of <strong>July</strong>, on the <strong>Saturday</strong> day, 2004. I have <strong>4</strong> siblings, and I am the <strong>3rd</strong> child in my family. I have <strong>2</strong> elder brothers and <strong>1</strong> younger sister. That’s a little about my family background.</p>
+
+      <p>When it comes to hobbies, I enjoy <strong>Reading</strong>, <strong>cooking</strong>, <strong>crocheting</strong>, <strong>badminton</strong>, and <strong>Knitting</strong>. Even though I may not be very skilled at all of them, I like to keep practicing and improving. These hobbies help me stay active, relaxed, and happy.</p>
+
+      <p>Now, talking about myself, I am a <strong>introvert</strong> person, and I enjoy being <strong>alone</strong>. I don’t have <strong>many</strong> friends, and I am comfortable with that because I value meaningful and genuine connections over having many people around me. I am student at Sherubtse College and i am studing Data science and Data Analytic </p>
+
+      <p>Overall, I am someone who is always trying to grow, learn new things, and become a better version of myself.</p>
+    </div>
+
+    <!-- Right column: Store Details + Contact Form (kept from original) -->
+    <div>
+      <div class="store-details">
+        <h2 style="color: #2C5F2D; margin-bottom: 1rem; border-left: 5px solid #E67E22; padding-left: 1rem;">Store Information</h2>
+        <div class="info-item" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <i class="fas fa-map-marker-alt" style="color: #E67E22; width: 30px;"></i>
+          <p><strong>Address:</strong> Main Road, Kanglung, Trashigang<br>Opposite Sherubtse College Main Gate</p>
+        </div>
+        <div class="info-item" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <i class="fas fa-phone-alt" style="color: #E67E22; width: 30px;"></i>
+          <p><strong>Phone:</strong> +975 17 123 456</p>
+        </div>
+        <div class="info-item" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <i class="fas fa-envelope" style="color: #E67E22; width: 30px;"></i>
+          <p><strong>Email:</strong> drukstore@kanglung.bt</p>
+        </div>
+        <div class="info-item" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <i class="fas fa-clock" style="color: #E67E22; width: 30px;"></i>
+          <div>
+            <strong>Opening Hours</strong>
+            <ul class="hours-list" style="list-style: none; margin-top: 0.5rem;">
+              <li style="display: flex; justify-content: space-between;"><span>Monday – Saturday</span> <span>8:00 AM – 8:00 PM</span></li>
+              <li style="display: flex; justify-content: space-between;"><span>Sunday</span> <span>9:00 AM – 5:00 PM</span></li>
+              <li style="display: flex; justify-content: space-between;"><span>Exam weeks (Sherubtse)</span> <span>7:00 AM – 9:00 PM</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-section" style="margin-top: 2rem;">
+        <h2 style="color: #2C5F2D; margin-bottom: 1rem; border-left: 5px solid #E67E22; padding-left: 1rem;">Send me a message</h2>
+        <form action="#" method="post">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="name" style="display: block; font-weight: 600;">Your name *</label>
+            <input type="text" id="name" name="name" required style="width: 100%; padding: 0.6rem; border-radius: 12px; border: 1px solid #ddd;">
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="email" style="display: block; font-weight: 600;">Email address *</label>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 0.6rem; border-radius: 12px; border: 1px solid #ddd;">
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="message" style="display: block; font-weight: 600;">Message *</label>
+            <textarea id="message" name="message" rows="4" required style="width: 100%; padding: 0.6rem; border-radius: 12px; border: 1px solid #ddd;"></textarea>
+          </div>
+          <button type="submit" class="btn" style="background-color: #E67E22; border: none;">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>Druk General Store</h3>
+      <p>Serving the Kanglung community and Sherubtse College since 2005. Run by the owner, a proud local.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul style="list-style: none;">
+        <li><a href="grocery.html">Grocery</a></li>
+        <li><a href="stationery.html">Stationery</a></li>
+        <li><a href="household.html">Household</a></li>
+        <li><a href="about.html">Student Offers</a></li>
+      </ul>
+    </div>
+    <div class="footer-newsletter">
+      <h3>Newsletter</h3>
+      <p>Get weekly specials and college updates.</p>
+      <form action="#" method="post">
+        <input type="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>&copy; 2025 Druk General Store, Kanglung. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
